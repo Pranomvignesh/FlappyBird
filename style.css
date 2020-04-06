@@ -4,38 +4,100 @@ body{
     top: 0;
     right: 0;
     bottom: 0;
-    background: #af76e7;
+    background: #79c9f9;
     margin: 0;
 }
 #flappyBird1{
     position: relative;
     left : 170px;
 }
+.playingArea{
+    margin: 0px auto;
+    width: 100%;
+}
 #background{
     width:100%;
-    height: calc(100% - 30px);
-    background: red;
+    height: 100vh;
+    background: url(./assets/background.svg);
+    background-size: cover;
+    background-repeat: repeat-x;
+    background-position : 0px 0px;
+}
+#background.moving{
+    animation: backgroundMovement 10s linear 0s infinite normal forwards;
 }
 .bird{
     position: absolute;
     width: 1650px;
-    height: 1300px;
-    background-image: url(./assets/FlappyBird.svg);
+    height: 1410px;
     background-repeat: no-repeat;
     transform-origin: left top;
     margin-bottom: -1130px ;
-    transition: top 0.3s;
-}
-[wings="flapUp"]{
-    transform: scale(0.05) translate(-80px, -80px);
+    transition: top 0.2s;
     background-position: 0px 0px;
+    transform: scale(0.05) translate(-80px, -80px);
+    background-image: url(./assets/WingsDown.svg);
 }
-[wings="flapDown"]{
-    transform: scale(0.0575) translate(-70px, -70px);
-    background-position: -3625px 0px;
-    width: 1435px;
+.bird.flapWings{
+    animation: flapWings 0.5s cubic-bezier(1,-5, 0, 6) 0s infinite normal forwards;
 }
-[wings="flapUp"][gothit="true"]{
+@keyframes flapWings{
+    from{
+        background-image: url(./assets/WingsDown.svg);
+    }
+    to{
+        background-image: url(./assets/WingsUp.svg);
+    }
+}
+.pipe{
+    width: 133px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 700px;
+    display: flex;
+    flex-direction: column;
+    transform:translateX(0px);
+    animation: d 5s linear 0s infinite normal forwards;
+}
+@keyframes d{
+    to{
+        transform:translateX(-900px);
+    }
+}
+.pipe .top{
+    flex: 1 1 100%;
+    width : 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: rotate(180deg) translateY(-100%);
+    transform-origin: center top;
+}
+.pipe .bottom{
+    flex: 1 1 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pipe .gap{
+    flex: 0 0 200px;
+}
+.pipe .head{
+    border-radius: 5px;
+    height: 35px;
+    width: 133px;
+    background-image: url(./assets/PipeTop.svg);
+    background-repeat: no-repeat;
+}
+.pipe .body{
+    height: calc(100% - 35px);
+    width: 113px;
+    background-image: url(./assets/PipeBottom.svg);
+    background-repeat: repeat-y;
+}
+/* [wings="flapUp"][gothit="true"]{
     transform: scale(0.05) translate(-80px, -80px);
     background-position: -1800px 0px;
 }
@@ -43,4 +105,12 @@ body{
     transform: scale(0.06075) translate(-120px, -140px);
     background-position: -5200px 0px;
     width: 1455px;
+} */
+@keyframes backgroundMovement{
+    from{
+        background-position : 0px 0px;
+    }
+    to{
+        background-position : -2820px 0px;
+    }
 }
